@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Naming - Top 4 Consolidado</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        .smooth-transition {
+            transition: all 0.3s ease;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #059669 0%, #14b8a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const NamingPlatform = () => {
+            const [selectedName, setSelectedName] = useState(null);
+
+            const nomes = [
+                {
+                    id: 1,
+                    nome: 'MORADA',
+                    tipo: 'Lírico-Habitacional',
+                    score: 9.0,
+                    emoji: '🏡',
+                    recomendado: true,
+                    significado: 'Lar. Habitação transformadora. Quando você tem uma morada bem planejada, sua vida inteira se transforma. Genuinamente.',
+                    criterios: {
+                        pronuncia: 5,
+                        sonoridade: 5,
+                        grafia: 5,
+                        potencial: 4,
+                        conceito: 5,
+                        originalidade: 4,
+                    },
+                    descricao: 'Transformação enraizada em viver real. Zero teatralidade. Poesia + solidez.',
+                    narrativa: 'Seu Lar, Realizado',
+                    cor: 'from-emerald-50 to-teal-50',
+                    badge: '⭐⭐⭐ Recomendado'
+                },
+                {
+                    id: 2,
+                    nome: 'ANTONIRA',
+                    tipo: 'Autoral/Pessoal',
+                    score: 8.5,
+                    emoji: '👥',
+                    recomendado: false,
+                    significado: 'Origem familiar. Fusão de Antonio + Iranete. Cada projeto é realizado com amor, respeito e autenticidade genuína.',
+                    criterios: {
+                        pronuncia: 4,
+                        sonoridade: 5,
+                        grafia: 4,
+                        potencial: 5,
+                        conceito: 5,
+                        originalidade: 5,
+                    },
+                    descricao: 'Diferenciação radical. Humanidade genuína. Impossível copiar.',
+                    narrativa: 'De Família, Para Seu Lar',
+                    cor: 'from-purple-50 to-pink-50',
+                    badge: '⭐⭐ Forte'
+                },
+                {
+                    id: 3,
+                    nome: 'GESTALT',
+                    tipo: 'Conceitual/Harmonia',
+                    score: 8.0,
+                    emoji: '⚖️',
+                    recomendado: false,
+                    significado: 'Harmonia. Configuração perfeita. Quando o todo é maior que a soma das partes. Cada projeto reúne desejos, cores em harmonia.',
+                    criterios: {
+                        pronuncia: 4,
+                        sonoridade: 4,
+                        grafia: 4,
+                        potencial: 5,
+                        conceito: 5,
+                        originalidade: 5,
+                    },
+                    descricao: 'Sofisticação conceitual máxima. Equilíbrio + proporção perfeita.',
+                    narrativa: 'Harmonia Que Transforma',
+                    cor: 'from-slate-50 to-blue-50',
+                    badge: '⭐⭐ Boa'
+                },
+                {
+                    id: 4,
+                    nome: 'LEGNO',
+                    tipo: 'Material/Premium',
+                    score: 8.0,
+                    emoji: '🌲',
+                    recomendado: false,
+                    significado: 'Madeira em italiano. Sofisticação europeia genuína. Respeito à tradição de excelência. Qualidade que dura gerações.',
+                    criterios: {
+                        pronuncia: 5,
+                        sonoridade: 4,
+                        grafia: 5,
+                        potencial: 4,
+                        conceito: 4,
+                        originalidade: 4,
+                    },
+                    descricao: 'Sofisticação europeia. Excelência material. Referência cultural clara.',
+                    narrativa: 'Tradição em Móveis Planejados',
+                    cor: 'from-amber-50 to-orange-50',
+                    badge: '⭐⭐ Boa'
+                }
+            ];
+
+            const CriterioBar = ({ valor }) => {
+                return (
+                    <div className="flex items-center gap-2">
+                        <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-gradient-to-r from-slate-600 to-slate-800 smooth-transition"
+                                style={{ width: `${(valor / 5) * 100}%` }}
+                            />
+                        </div>
+                        <span className="text-sm font-semibold text-slate-700 w-6">{valor}/5</span>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+                    {/* Header */}
+                    <div className="border-b border-slate-200 bg-white sticky top-0 z-40 backdrop-blur-sm bg-opacity-95">
+                        <div className="max-w-7xl mx-auto px-6 py-8">
+                            <h1 className="text-4xl font-light text-slate-900 tracking-tight">
+                                Análise de Naming
+                            </h1>
+                            <p className="text-slate-600 mt-2 font-light">
+                                Comparação Estratégica do Top 4 — Avaliação por Critérios de Força de Marca
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Main Content */}
+                    <div className="max-w-7xl mx-auto px-6 py-12">
+                        {/* Legenda de Critérios */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-8 mb-12">
+                            <h2 className="text-lg font-semibold text-slate-900 mb-6">
+                                Critérios de Avaliação
+                            </h2>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                                <div>
+                                    <p className="font-medium text-slate-900">Pronúncia</p>
+                                    <p className="text-sm text-slate-600 mt-1">Facilidade de pronunciar</p>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-slate-900">Sonoridade</p>
+                                    <p className="text-sm text-slate-600 mt-1">Qualidade sonora agradável</p>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-slate-900">Grafia</p>
+                                    <p className="text-sm text-slate-600 mt-1">Facilidade de escrever</p>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-slate-900">Potencial</p>
+                                    <p className="text-sm text-slate-600 mt-1">Potencial de exploração</p>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-slate-900">Conceito</p>
+                                    <p className="text-sm text-slate-600 mt-1">Alinhamento estratégico</p>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-slate-900">Originalidade</p>
+                                    <p className="text-sm text-slate-600 mt-1">Força e diferenciação</p>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-slate-900">Score Geral</p>
+                                    <p className="text-sm text-slate-600 mt-1">Nota final estratégica</p>
+                                </div>
+                                <div>
+                                    <p className="font-medium text-slate-900">Disponibilidade</p>
+                                    <p className="text-sm text-slate-600 mt-1">Status digital</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Cards Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                            {nomes.map((nome) => (
+                                <div
+                                    key={nome.id}
+                                    className={`group bg-gradient-to-br ${nome.cor} rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg smooth-transition cursor-pointer`}
+                                    onClick={() => setSelectedName(selectedName === nome.id ? null : nome.id)}
+                                >
+                                    {/* Badge */}
+                                    {nome.recomendado && (
+                                        <div className="bg-gradient-to-r from-emerald-500 to-teal-500 px-6 py-3 text-white font-semibold text-center">
+                                            {nome.badge}
+                                        </div>
+                                    )}
+
+                                    <div className="p-8">
+                                        {/* Header do Card */}
+                                        <div className="flex items-start justify-between mb-6">
+                                            <div>
+                                                <div className="flex items-center gap-3 mb-2">
+                                                    <span className="text-4xl">{nome.emoji}</span>
+                                                    <h3 className="text-4xl font-bold text-slate-900 tracking-tight">
+                                                        {nome.nome}
+                                                    </h3>
+                                                </div>
+                                                <p className="text-sm font-medium text-slate-600 uppercase tracking-wide">
+                                                    {nome.tipo}
+                                                </p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-5xl font-light text-slate-900">
+                                                    {nome.score}
+                                                </p>
+                                                <p className="text-xs text-slate-600 uppercase tracking-wide mt-1">
+                                                    Score
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        {/* Divisor */}
+                                        <div className="h-px bg-gradient-to-r from-slate-300 via-slate-200 to-transparent mb-6" />
+
+                                        {/* Significado */}
+                                        <div className="mb-6">
+                                            <p className="text-sm font-semibold text-slate-900 uppercase tracking-wide mb-2">
+                                                Significado
+                                            </p>
+                                            <p className="text-slate-700 leading-relaxed font-light">
+                                                {nome.significado}
+                                            </p>
+                                        </div>
+
+                                        {/* Descrição */}
+                                        <div className="mb-6 p-4 bg-white bg-opacity-60 rounded-xl">
+                                            <p className="text-sm font-medium text-slate-900">
+                                                {nome.descricao}
+                                            </p>
+                                        </div>
+
+                                        {/* Narrativa/Assinatura */}
+                                        <div className="mb-8">
+                                            <p className="text-sm font-semibold text-slate-900 uppercase tracking-wide mb-2">
+                                                Assinatura Sugerida
+                                            </p>
+                                            <p className="text-lg font-light text-slate-800">
+                                                "{nome.nome}" — {nome.narrativa}
+                                            </p>
+                                        </div>
+
+                                        {/* Expandable Section */}
+                                        {selectedName === nome.id && (
+                                            <div className="space-y-6 pt-6 border-t border-slate-200">
+                                                <div>
+                                                    <p className="text-sm font-semibold text-slate-900 uppercase tracking-wide mb-4">
+                                                        Avaliação Detalhada
+                                                    </p>
+                                                    <div className="space-y-4">
+                                                        {Object.entries(nome.criterios).map(([criterio, valor]) => (
+                                                            <div key={criterio}>
+                                                                <label className="text-sm font-medium text-slate-700 capitalize block mb-2">
+                                                                    {criterio === 'pronuncia'
+                                                                        ? 'Pronúncia'
+                                                                        : criterio === 'sonoridade'
+                                                                        ? 'Sonoridade'
+                                                                        : criterio === 'grafia'
+                                                                        ? 'Grafia'
+                                                                        : criterio === 'potencial'
+                                                                        ? 'Potencial'
+                                                                        : criterio === 'conceito'
+                                                                        ? 'Conceito'
+                                                                        : 'Originalidade'}
+                                                                </label>
+                                                                <CriterioBar valor={valor} />
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                {/* Disponibilidade */}
+                                                <div className="pt-4 border-t border-slate-200">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-lg">✅</span>
+                                                        <span className="text-sm font-medium text-slate-700">
+                                                            Disponível para Registro no INPI
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Toggle Button */}
+                                        <div className="text-center pt-4 border-t border-slate-200 border-opacity-0 group-hover:border-opacity-100 smooth-transition">
+                                            <button className="text-sm font-medium text-slate-600 hover:text-slate-900 smooth-transition">
+                                                {selectedName === nome.id ? '∧ Ocultar Detalhes' : '∨ Ver Detalhes Completos'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Summary Table */}
+                        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm mb-12">
+                            <div className="p-8 border-b border-slate-200">
+                                <h2 className="text-xl font-semibold text-slate-900">
+                                    Comparativo Estruturado
+                                </h2>
+                            </div>
+                            <div className="overflow-x-auto">
+                                <table className="w-full">
+                                    <thead className="bg-slate-50 border-b border-slate-200">
+                                        <tr>
+                                            <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Nome</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Tipo</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Score</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Pronúncia</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Sonoridade</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Grafia</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Potencial</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Conceito</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Originalidade</th>
+                                            <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-200">
+                                        {nomes.map((nome) => (
+                                            <tr key={nome.id} className="hover:bg-slate-50 smooth-transition">
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <span className="text-2xl">{nome.emoji}</span>
+                                                        <span className="font-semibold text-slate-900">{nome.nome}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="text-sm text-slate-600">{nome.tipo}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="font-bold text-slate-900">{nome.score}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="font-semibold text-slate-900">{nome.criterios.pronuncia}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="font-semibold text-slate-900">{nome.criterios.sonoridade}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="font-semibold text-slate-900">{nome.criterios.grafia}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="font-semibold text-slate-900">{nome.criterios.potencial}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="font-semibold text-slate-900">{nome.criterios.conceito}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="font-semibold text-slate-900">{nome.criterios.originalidade}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="text-lg">✅</span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {/* Footer Recomendação */}
+                        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 p-8 mb-12">
+                            <h2 className="text-xl font-semibold text-slate-900 mb-4">
+                                Recomendação Profissional
+                            </h2>
+                            <p className="text-slate-700 leading-relaxed mb-6 font-light">
+                                <span className="font-semibold text-emerald-900">Primeira Escolha: MORADA (9.0/10)</span> — Score mais alto, categoria imediata, memorabilidade máxima (90%+), risco mínimo, investimento baixo em construção de marca. Preenche o gap de transformação e conecta com o propósito "Realizando Sonhos".
+                            </p>
+                            <p className="text-slate-700 leading-relaxed font-light">
+                                <span className="font-semibold text-emerald-900">Alternativas Fortes:</span> ANTONIRA (diferenciação radical), GESTALT (sofisticação conceitual), LEGNO (excelência material). Todos registráveis no INPI. Recomenda-se testar os 4 com público-alvo antes de decisão final.
+                            </p>
+                        </div>
+
+                        {/* Final Note */}
+                        <div className="text-center text-slate-600 font-light text-sm">
+                            <p>
+                                Análise de Naming — Projeto de Marca de Móveis Planejados<br />
+                                Janeiro de 2026 · Top 4 consolidado para validação<br />
+                                Análise e desenvolvimento por Lucas Procópio
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<NamingPlatform />, document.getElementById('root'));
+    </script>
+</body>
+</html>
